@@ -12,9 +12,9 @@ async function createProject(project) {
 
 
     return {
-        project_id: newProject.project_id,
+        // project_id: newProject.project_id,
         project_name: newProject.project_name,
-        project_description: newProject.project_description,
+        // project_description: newProject.project_description,
         project_completed: Boolean(newProject.project_completed),
     }
 }
