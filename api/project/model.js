@@ -4,7 +4,7 @@ const db = require('../../data/dbConfig')
 async function createProject(project) {
     const newProjectId = await db('projects').insert({
         project_name: project.project_name,
-        project_description: project.project_description,
+        project_description: project.project_description || null,
         project_completed: project.project_completed ? 1 : 0,
     })
    
@@ -12,9 +12,9 @@ async function createProject(project) {
 
 
     return {
-        // project_id: newProject.project_id,
+        project_id: newProject.project_id,
         project_name: newProject.project_name,
-        // project_description: newProject.project_description,
+        project_description: newProject.project_description,
         project_completed: Boolean(newProject.project_completed),
     }
 }
@@ -37,4 +37,14 @@ async function getAllProjects() {
     return projects
 }
 
-module.exports = { createProject, getAllProjects }
+
+async function deleteProject(project_id) {
+    const deleted = await db('projects')
+    .where({ project_id })
+    .del()
+
+    return deleted
+}
+
+
+module.exports = { createProject, getAllProjects, deleteProject }
